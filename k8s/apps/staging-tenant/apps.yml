@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prister-staging
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: frontend=registry.gitlab.com/novalearn/core/novalearn-staging-frontend:latest, admin=registry.gitlab.com/novalearn/core/novalearn-staging-admin:latest
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/updater-git-creds
+    argocd-image-updater.argoproj.io/frontend.update-strategy: digest
+    argocd-image-updater.argoproj.io/admin.update-strategy: digest
+    argocd-image-updater.argoproj.io/git-branch: staging
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: prister-staging
+  source:
+    path: k8s/environment/overlays/staging-tenant
+    repoURL: git@gitlab.com:novalearn/core
+    targetRevision: staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prister-staging
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true

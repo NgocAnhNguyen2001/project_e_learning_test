@@ -1,0 +1,5 @@
+kustomize:
+  images:
+  - registry.gitlab.com/novalearn/core/novalearn-staging-backend:latest
+  - registry.gitlab.com/novalearn/core/novalearn-staging-frontend:latest
+  - registry.gitlab.com/novalearn/core/novalearn-staging-admin:latest

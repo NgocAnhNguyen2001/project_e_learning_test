@@ -1,0 +1,31 @@
+query notificationListAllUnread{
+    notificationListAllUnread {
+        createdAt
+        notification {
+            href
+            id
+            message
+            thumbnail
+            title
+        }
+        notificationId
+        read
+        userId
+    }
+}
+
+query notificationListAll{
+    notificationListAll {
+        createdAt
+        notification {
+            href
+            id
+            message
+            thumbnail
+            title
+        }
+        notificationId
+        read
+        userId
+    }
+}

@@ -1,0 +1,10 @@
+
+mutation createCourseReview(
+    $data: CreateCourseReviewInput!
+  ) {
+  createCourseReview(
+    data: $data
+  ) {
+    id
+  }
+}

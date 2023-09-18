@@ -1,0 +1,3 @@
+mutation deleteChallengeComment($commentId: String!) {
+  deleteChallengeComment(commentId: $commentId)
+}

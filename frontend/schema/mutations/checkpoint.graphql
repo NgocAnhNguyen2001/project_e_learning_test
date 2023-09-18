@@ -1,0 +1,352 @@
+mutation createBlock($data: CreateBlockInput!) {
+  createGenericBlock(data: $data) {
+    id
+    blockType
+    checkpointId
+    order
+    textBlock {
+      text
+    }
+  }
+}
+
+mutation createCheckpoint($data: CreateCheckpointInput!) {
+  createCheckpoint(data: $data) {
+    id
+    title
+  }
+}
+
+mutation updateCheckpoint($data: UpdateCheckpointInput!, $id: String!) {
+  updateCheckpoint(data: $data, id: $id) {
+    id
+    order
+    title
+    _count {
+      subCheckpoints
+    }
+    parentCheckPoint {
+      id
+      title
+      parentCheckPoint {
+        id
+        title
+      }
+    }
+    parentCheckpointId
+    subCheckpoints {
+      id
+      title
+      order
+      _count {
+        subCheckpoints
+      }
+      parentCheckPoint {
+        id
+        title
+      }
+      parentCheckpointId
+      subCheckpoints {
+        id
+        title
+      }
+    }
+  }
+}
+
+mutation uploadCheckpointImage($file: Upload!, $id: String!) {
+  uploadImageAsset(file: $file, id: $id) {
+    id
+  }
+}
+
+mutation removeCheckpoint($id: String!) {
+  removeCheckpoint(id: $id) {
+    id
+  }
+}
+
+mutation removeBlock($id: String!) {
+  removeBlock(id: $id) {
+    id
+  }
+}
+
+mutation upsertBlocks(
+  $data: UpdateCheckpointCreateManyBlocksInput!
+  $id: String!
+) {
+  updateCheckpointCreateManyBlocks(data: $data, id: $id) {
+    id
+    blocks {
+      id
+      blockType
+      order
+      textBlock {
+        id
+        text
+      }
+      attachmentBlock {
+        id
+        asset {
+          id
+          fileType
+          url
+        }
+      }
+      mediaBlock {
+        id
+        asset {
+          id
+          fileType
+          url
+        }
+      }
+      questionBlock {
+        id
+        title
+        asset {
+          id
+          fileType
+          url
+        }
+        quizType
+      }
+    }
+  }
+}
+
+mutation upsertQuizBlocks(
+  $data: UpdateCheckpointManyQuestionsBlockInput!
+  $id: String!
+) {
+  updateCheckpointCreateManyQuestionBlocks(data: $data, id: $id) {
+    id
+    blocks {
+      id
+      blockType
+      order
+      textBlock {
+        id
+        text
+      }
+      attachmentBlock {
+        id
+        asset {
+          id
+          fileType
+          url
+        }
+      }
+      mediaBlock {
+        id
+        asset {
+          id
+          fileType
+          url
+        }
+      }
+      questionBlock {
+        id
+        title
+        quizType
+        answerType
+        answerQuantityType
+        description
+        pairs {
+          id
+          pair
+        }
+        selections {
+          id
+          asset {
+            ...assetData
+          }
+          isCorrect
+          text
+        }
+        asset {
+          ...assetData
+        }
+      }
+    }
+  }
+}
+
+mutation removeBlocks($ids: [String!]!) {
+  removeManyBlock(ids: $ids) {
+    id
+  }
+}
+
+mutation uploadBlockAsset(
+  $file: Upload!
+  $id: String!
+  $subs: [SubtitleUploadInput!]
+) {
+  uploadBlockAsset(file: $file, id: $id, subs: $subs) {
+    id
+    name
+    url
+    Subtitles {
+      url
+      language
+    }
+  }
+}
+
+mutation uploadBlockAssets($files: [UploadBlockAsset!]!) {
+  uploadBlockAssetBulk(files: $files) {
+    id
+    blockType
+  }
+}
+
+mutation uploadQuestionSelectionAssets($files: [UploadBlockAsset!]!) {
+  uploadQuestionSelectionAssetBulk(files: $files) {
+    id
+  }
+}
+
+mutation uploadQuestionBlockAsset($file: Upload!, $id: String!) {
+  uploadQuestionBlockAsset(id: $id, file: $file) {
+    id
+    url
+  }
+}
+
+mutation startCheckpoint($id: String!, $enrolledCourseId: String!) {
+  startCheckpoint(id: $id, enrolledCourseId: $enrolledCourseId) {
+    id
+    state
+    progress
+  }
+}
+
+mutation completeCheckpoint($id: String!) {
+  completeCheckpoint(id: $id) {
+    id
+    state
+    progress
+    student {
+      EXP
+      expLog {
+        expGained
+      }
+    }
+  }
+}
+
+mutation uploadChallenge($file: Upload!, $id: String!) {
+  uploadChallenge(file: $file, id: $id) {
+    challengeBlockId
+    asset {
+      id
+      url
+      fileType
+      name
+    }
+  }
+}
+
+mutation likeChallenge($id: String!) {
+  updateLikeChallenge(id: $id) {
+    id
+    asset {
+      ...assetData
+    }
+    comments {
+      id
+      commenter {
+        firstName
+        lastName
+      }
+      commenterId
+      text
+    }
+    likes {
+      likerId
+    }
+    creator {
+      id
+      username
+    }
+    creatorId
+  }
+}
+
+mutation commentChallenge($challengeId: String!, $text: String!) {
+  commentChallenge(data: { challengeId: $challengeId, text: $text }) {
+    id
+    asset {
+      ...assetData
+    }
+    comments {
+      id
+      commenter {
+        firstName
+        lastName
+      }
+      commenterId
+      text
+    }
+    likes {
+      likerId
+    }
+    creator {
+      id
+      username
+    }
+    creatorId
+  }
+}
+
+mutation reportChallenge($challengeId: String!, $report: String!) {
+  reportChallenge(data: { challengeId: $challengeId, report: $report }) {
+    id
+    asset {
+      ...assetData
+    }
+    comments {
+      id
+      commenter {
+        firstName
+        lastName
+      }
+      commenterId
+      text
+    }
+    likes {
+      likerId
+    }
+    creator {
+      id
+      username
+    }
+    creatorId
+  }
+}
+
+mutation deleteChallenge($id: String!) {
+  deleteChallenge(id: $id) {
+    id
+  }
+}
+
+mutation deletOneSubtitle($where: SubtitlesWhereUniqueInput!) {
+  deleteOneSubtitles(where: $where) {
+    id
+  }
+}
+
+mutation updateOneSubtitles(
+  $data: SubtitlesUpdateInput!
+  $where: SubtitlesWhereUniqueInput!
+) {
+  updateOneSubtitles(data: $data, where: $where) {
+    id
+    language
+    url
+    videoId
+  }
+}

@@ -1,0 +1,353 @@
+fragment basicCourseData on Course {
+  id
+  title
+  description
+  duration
+  level
+  category {
+    ...courseCategoryData
+  }
+  thumbnail {
+    id
+    url
+  }
+  teacher {
+    photo {
+      url
+    }
+    user {
+      id
+      firstName
+      lastName
+    }
+  }
+  state
+  published
+}
+
+fragment courseData on Course {
+  id
+  title
+  description
+  duration
+  level
+  category {
+    ...courseCategoryData
+  }
+  thumbnail {
+    id
+    url
+  }
+  teacher {
+    photo {
+      url
+    }
+    user {
+      id
+      firstName
+      lastName
+    }
+  }
+  state
+  published
+  checkpoints {
+    ...checkpointData
+  }
+}
+
+fragment basicCheckpointData on Checkpoint {
+  id
+  order
+  title
+  type
+  description
+  courseId
+  image {
+    id
+    name
+    url
+  }
+  _count {
+    subCheckpoints
+  }
+}
+
+fragment checkpointData on Checkpoint {
+  ...basicCheckpointData
+  ...blockData
+  parentCheckPoint {
+    id
+    title
+    parentCheckPoint {
+      id
+      title
+    }
+  }
+  parentCheckpointId
+  subCheckpoints {
+    ...basicCheckpointData
+    parentCheckPoint {
+      id
+      title
+      courseId
+    }
+    parentCheckpointId
+    subCheckpoints {
+      id
+      title
+    }
+  }
+}
+
+fragment optimisedCourseData on Course {
+  id
+  title
+  description
+  duration
+  level
+  category {
+    ...courseCategoryData
+  }
+  thumbnail {
+    id
+    url
+  }
+  teacher {
+    photo {
+      url
+    }
+    user {
+      id
+      firstName
+      lastName
+    }
+  }
+  state
+  published
+  checkpoints {
+    ...optimisedCheckpointData
+  }
+}
+
+fragment optimisedCheckpointData on Checkpoint {
+  id
+  title
+  type
+  blocks {
+    mediaBlock {
+      asset {
+        fileType
+        url
+      }
+    }
+  }
+}
+
+fragment blockData on Checkpoint {
+  blocks {
+    id
+    blockType
+    order
+    textBlock {
+      id
+      text
+    }
+    attachmentBlock {
+      id
+      text
+      assetId
+      asset {
+        ...assetData
+      }
+    }
+    mediaBlock {
+      id
+      assetId
+      asset {
+        ...assetData
+      }
+    }
+    challengeBlock {
+      id
+      challengeGallery {
+        id
+        asset {
+          ...assetData
+        }
+        comments {
+          id
+          commenter {
+            firstName
+            lastName
+          }
+          commenterId
+          text
+        }
+        likes {
+          likerId
+        }
+        creator {
+          id
+          username
+        }
+        creatorId
+      }
+    }
+    questionBlock {
+      id
+      title
+      quizType
+      answerType
+      answerQuantityType
+      description
+      asset {
+        ...assetData
+      }
+      pairs {
+        id
+        pair
+        isImage
+        asset {
+          ...assetData
+        }
+      }
+      selections {
+        id
+        asset {
+          ...assetData
+        }
+        isCorrect
+        order
+        text
+      }
+      asset {
+        ...assetData
+      }
+    }
+  }
+}
+
+fragment assetData on Asset {
+  id
+  fileType
+  url
+  name
+  Subtitles {
+    id
+    videoId
+    language
+    url
+  }
+}
+
+fragment courseCategoryData on Category {
+  id
+  name
+  activeImgUrl
+  inactiveImgUrl
+}
+
+fragment newUserAvatar on NewUserAvatarDto {
+  body {
+    ...skinAvatarAsset
+  }
+  ears {
+    ...skinAvatarAsset
+  }
+  head {
+    ...skinAvatarAsset
+  }
+  horns {
+    ...skinAvatarAsset
+  }
+  bottom {
+    ...normalAvatarAsset
+  }
+  cheeks {
+    ...normalAvatarAsset
+  }
+  eyes {
+    ...normalAvatarAsset
+  }
+  eyesAccessory {
+    ...normalAvatarAsset
+  }
+  headAccessory {
+    ...normalAvatarAsset
+  }
+  mouth {
+    ...normalAvatarAsset
+  }
+  nose {
+    ...normalAvatarAsset
+  }
+  pet {
+    ...normalAvatarAsset
+  }
+  hairBack {
+    ...hairAvatarAsset
+  }
+  hairBangs {
+    ...hairAvatarAsset
+  }
+  shoes {
+    ...normalAvatarAsset
+  }
+  hairColour {
+    ...avatarAssetColour
+  }
+  skinColour {
+    ...avatarAssetColour
+  }
+  itemAccessory {
+    ...normalAvatarAsset
+  }
+  faceAccessory {
+    ...normalAvatarAsset
+  }
+  topAccessory {
+    ...normalAvatarAsset
+  }
+  jacket {
+    ...normalAvatarAsset
+  }
+  shirt {
+    ...normalAvatarAsset
+  }
+  shadow {
+    ...normalAvatarAsset
+  }
+}
+
+fragment avatarAssetColour on AvatarAssetColour {
+  assetType
+  colourImgUrl
+  id
+  label
+}
+
+fragment hairAvatarAsset on HairAvatarAsset {
+  avatarAssetCatelogId
+  hairColourId
+  id
+  imgUrl
+  label
+  hairType
+}
+
+fragment skinAvatarAsset on SkinAvatarAsset {
+  avatarAssetCatelogId
+  id
+  imgUrl
+  label
+  skinColourId
+  isHalfBody
+}
+
+fragment normalAvatarAsset on NormalAvatarAsset {
+  avatarAssetCatelogId
+  id
+  imgUrl
+  label
+  isOuterMost
+}

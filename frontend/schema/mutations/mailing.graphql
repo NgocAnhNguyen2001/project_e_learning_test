@@ -1,0 +1,7 @@
+mutation resendVerifyEmail(
+  $email: String!
+) {
+  resendVerifyEmail(
+    email: $email
+  )
+}

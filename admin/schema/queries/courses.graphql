@@ -1,0 +1,59 @@
+query findManyCourses(
+  $cursor: CourseWhereUniqueInput
+  $distinct: [CourseScalarFieldEnum!]
+  $orderBy: [CourseOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: CourseWhereInput
+) {
+  courses(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    ...courseField
+  }
+}
+
+query adminCountCourse(
+  $cursor: CourseWhereUniqueInput
+  $distinct: [CourseScalarFieldEnum!]
+  $orderBy: [CourseOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: CourseWhereInput
+) {
+  adminCountCourse(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  )
+}
+
+query findUniqueCourse($where: CourseWhereUniqueInput!) {
+  course(where: $where) {
+    state
+    published
+    title
+    teacherId
+    teacher {
+      user {
+        firstName
+        lastName
+      }
+      photo {
+        url
+      }
+      createdAt
+    }
+    thumbnail {
+      url
+    }
+  }
+}

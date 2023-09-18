@@ -1,0 +1,14 @@
+mutation saveAvatar($avatar: String!) {
+  saveUserAvatar(avatarJsonString: $avatar) {
+    ...newUserAvatar
+  }
+}
+
+mutation uploadAvatar($file: Upload!) {
+  uploadStudentAvatarImage(file: $file) {
+    avatarImage {
+      id
+      url
+    }
+  }
+}

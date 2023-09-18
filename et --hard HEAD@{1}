@@ -1,0 +1,21 @@
+[33m654509e8[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/nov-704-user-last-login-backend[m[33m)[m HEAD@{0}: pull origin main: Merge made by the 'recursive' strategy.
+[33mbdcceaf7[m[33m ([m[1;31morigin/feature/nov-704-user-last-login-backend[m[33m)[m HEAD@{1}: checkout: moving from feature/nov-703-user-last-login to feature/nov-704-user-last-login-backend
+[33m6ef725a3[m[33m ([m[1;31morigin/feature/nov-703-user-last-login[m[33m, [m[1;32mfeature/nov-703-user-last-login[m[33m)[m HEAD@{2}: checkout: moving from feature/nov-717-hotfix-checkpoint-question-sections to feature/nov-703-user-last-login
+[33mef4d7e01[m[33m ([m[1;31morigin/feature/nov-717-hotfix-checkpoint-question-sections[m[33m, [m[1;32mfeature/nov-717-hotfix-checkpoint-question-sections[m[33m)[m HEAD@{3}: commit: fixed question rearrange after reorder
+[33m52c0b09e[m HEAD@{4}: commit: fixed the question drag-arrange issue
+[33m6dbc79cf[m[33m ([m[1;32mmain[m[33m)[m HEAD@{5}: checkout: moving from main to feature/nov-717-hotfix-checkpoint-question-sections
+[33m6dbc79cf[m[33m ([m[1;32mmain[m[33m)[m HEAD@{6}: pull origin main: Fast-forward
+[33m218f4055[m HEAD@{7}: checkout: moving from feature/nov-717-hotfix-checkpoint-question-sections to main
+[33m756ee1d2[m HEAD@{8}: reset: moving to HEAD
+[33m756ee1d2[m HEAD@{9}: commit: remove console.log
+[33m95175d06[m HEAD@{10}: commit: custom deepclone function
+[33mc21c80b9[m HEAD@{11}: checkout: moving from feature/nov-722-admin-search-does-not-update-pagination to feature/nov-717-hotfix-checkpoint-question-sections
+[33m39182498[m[33m ([m[1;31morigin/feature/nov-722-admin-search-does-not-update-pagination[m[33m, [m[1;32mfeature/nov-722-admin-search-does-not-update-pagination[m[33m)[m HEAD@{12}: commit: fixed pagination reset after searching
+[33m15625503[m[33m ([m[1;31morigin/feature/nov-723-hearing-type-checkpoint-still-playing[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{13}: reset: moving to HEAD
+[33m15625503[m[33m ([m[1;31morigin/feature/nov-723-hearing-type-checkpoint-still-playing[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{14}: checkout: moving from develop to feature/nov-722-admin-search-does-not-update-pagination
+[33m15625503[m[33m ([m[1;31morigin/feature/nov-723-hearing-type-checkpoint-still-playing[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{15}: pull: Fast-forward
+[33m51ef9873[m HEAD@{16}: checkout: moving from feature/nov-717-hotfix-checkpoint-question-sections to develop
+[33mc21c80b9[m HEAD@{17}: pull: Merge made by the 'recursive' strategy.
+[33me576340d[m HEAD@{18}: commit: deepclone lodash code-splitting function
+[33m218f4055[m HEAD@{19}: checkout: moving from main to feature/nov-717-hotfix-checkpoint-question-sections
+[33m218f4055[m HEAD@{20}: checkout: moving from feature/nov-717-hotfix-checkpoint-question-sections to main

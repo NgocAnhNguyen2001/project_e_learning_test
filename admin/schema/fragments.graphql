@@ -1,0 +1,204 @@
+fragment courseData on Course {
+  id
+  title
+  description
+  duration
+  level
+  category {
+    id
+    name
+  }
+  thumbnail {
+    id
+    url
+  }
+  teacher {
+    user {
+      firstName
+      lastName
+    }
+  }
+  state
+  published
+  checkpoints {
+    ...checkpointData
+  }
+}
+
+fragment basicCheckpointData on Checkpoint {
+  id
+  order
+  title
+  type
+  description
+  courseId
+  image {
+    id
+    name
+    url
+  }
+  _count {
+    subCheckpoints
+  }
+}
+
+fragment checkpointData on Checkpoint {
+  ...basicCheckpointData
+  parentCheckPoint {
+    id
+    title
+    parentCheckPoint {
+      id
+      title
+    }
+  }
+  parentCheckpointId
+  subCheckpoints {
+    ...basicCheckpointData
+    parentCheckPoint {
+      id
+      title
+      courseId
+    }
+    parentCheckpointId
+    subCheckpoints {
+      id
+      title
+    }
+  }
+}
+
+fragment blockData on Checkpoint {
+  blocks {
+    id
+    blockType
+    order
+    textBlock {
+      id
+      text
+    }
+    attachmentBlock {
+      id
+      assetId
+      asset {
+        ...assetData
+      }
+    }
+    mediaBlock {
+      id
+      assetId
+      asset {
+        ...assetData
+      }
+    }
+    questionBlock {
+      id
+      title
+      quizType
+      answerType
+      answerQuantityType
+      pairs {
+        id
+        pair
+      }
+      selections {
+        id
+        asset {
+          ...assetData
+        }
+        isCorrect
+        text
+      }
+      asset {
+        ...assetData
+      }
+    }
+  }
+}
+
+fragment assetData on Asset {
+  id
+  fileType
+  url
+  name
+}
+
+fragment userField on User {
+  id
+  role
+  createdAt
+  firstName
+  lastName
+  lastLogin
+  team {
+    name
+  }
+  verified
+}
+
+fragment parentField on Parent {
+  status
+  email
+}
+
+fragment teacherField on Teacher {
+  email
+  gender
+  introduction
+  nationality
+  phoneNumber
+  profilePicture
+  addressId
+  jobTitle
+  photo {
+    url
+  }
+}
+
+fragment studentField on Student {
+  username
+  loginPattern
+  bio
+  email
+  parentId
+}
+
+fragment checkpointField on Checkpoint {
+  courseId
+  createdAt
+  deleted
+  description
+  duration
+  enabled
+  id
+  imageId
+  order
+  parentCheckpointId
+  title
+  type
+  updatedAt
+}
+
+fragment courseField on Course {
+  id
+  thumbnail {
+    url
+  }
+  title
+  teacher {
+    id
+    photo {
+      url
+    }
+    user {
+      firstName
+      lastName
+      teamId
+      role
+    }
+  }
+  published
+  state
+  createdAt
+  updatedAt
+}

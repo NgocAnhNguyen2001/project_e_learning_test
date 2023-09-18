@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - admin.yml
+  - frontend.yml
+  - regcred.yml
+  - ./configs
+  - ingress.yml
+  - namespace.yml
+images:
+  - name: nova-frontend
+    newName: registry.gitlab.com/novalearn/core/novalearn-production-frontend
+  - name: nova-admin
+    newName: registry.gitlab.com/novalearn/core/novalearn-production-admin
+namespace: mindworks-production

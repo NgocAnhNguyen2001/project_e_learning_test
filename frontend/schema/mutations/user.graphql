@@ -1,0 +1,101 @@
+mutation signup($data: SignupInput!) {
+  signup(data: $data) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation updateUser($data: UpdateUserInput!) {
+  updateUser(data: $data) {
+    firstName
+    lastName
+  }
+}
+
+mutation updateChild($data: UpdateChildDetailsInput!, $id: String!) {
+  updateChild(data: $data, id: $id) {
+    id
+  }
+}
+
+mutation removeChild($id: String!) {
+  removeChild(id: $id) {
+    id
+  }
+}
+
+mutation changeParentPassword($data: ChangePasswordInput!) {
+  changeParentPassword(data: $data) {
+    id
+  }
+}
+
+mutation changeTeacherPassword($data: ChangePasswordInput!) {
+  changeTeacherPassword(data: $data) {
+    id
+  }
+}
+
+mutation updateTeacher($data: UpdateTeacherDetailsInput!) {
+  updateTeacherDetails(data: $data) {
+    id
+  }
+}
+
+mutation startChat($data: CreateChatDto!) {
+  createGroupChat(data: $data)
+}
+
+mutation addFriend($id: String!) {
+  requestFriend(id: $id) {
+    friendStatus
+    requesterId
+    requesteeId
+  }
+}
+
+mutation acceptFriend($id: String!) {
+  acceptOrDeclineFriend(id: $id, status: ACCEPTED) {
+    friendStatus
+    requester {
+      id
+      username
+    }
+  }
+}
+
+mutation declineFriend($id: String!) {
+  acceptOrDeclineFriend(id: $id, status: DECLINED) {
+    friendStatus
+    requester {
+      id
+      username
+    }
+  }
+}
+
+mutation updateTeacherProfilePicture($file: Upload!) {
+  uploadTeacherProfile(file: $file) {
+    photo {
+      id
+      fileType
+      url
+    }
+  }
+}
+
+mutation updateTeacherProfileBanner($file: Upload!) {
+  uploadTeacherBanner(file: $file) {
+    banner {
+      id
+      fileType
+      url
+    }
+  }
+}
+
+mutation updateUserOnboarded($data: UpdateUserInput!){
+  updateUser(data: $data){
+    onboarded
+  }
+}

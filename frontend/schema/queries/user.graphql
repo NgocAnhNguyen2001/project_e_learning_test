@@ -1,0 +1,417 @@
+mutation signup($data: SignupInput!) {
+  signup(data: $data) {
+    accessToken
+    refreshToken
+  }
+}
+
+query me {
+  me {
+    id
+    firstName
+    lastName
+    role
+    onboarded
+    parent {
+      email
+      children {
+        id
+        username
+        birthDate
+        loginPattern
+        user {
+          firstName
+          lastName
+        }
+        avatarImage {
+          id
+          url
+        }
+      }
+    }
+    teacher {
+      user {
+        firstName
+        lastName
+      }
+      photo {
+        id
+        url
+      }
+      banner {
+        id
+        url
+      }
+    }
+    student {
+      avatarImage {
+        id
+        url
+      }
+    }
+  }
+}
+
+query child($id: String!, $whereCourse: EnrolledCourseWhereInput) {
+  child(id: $id) {
+    id
+    username
+    birthDate
+    loginPattern
+    bio
+    email
+    EXP
+    enrolledCourses(orderBy: { progress: asc }, where: $whereCourse) {
+      progress
+      createdAt
+      state
+      course {
+        id
+        title
+        duration
+        state
+        published
+        deleted
+        thumbnail {
+          url
+        }
+      }
+    }
+    user {
+      firstName
+      lastName
+      userNotificationSettings {
+        allowed
+      }
+    }
+    avatarImage {
+      id
+      url
+    }
+  }
+}
+
+query teacher {
+  me {
+    id
+    firstName
+    lastName
+    role
+    teacher {
+      email
+      gender
+      nationality
+      experiences
+      education
+      certificates
+      jobTitle
+      introduction
+      phoneNumber
+      Course {
+        id
+        title
+        createdAt
+        duration
+        description
+        level
+        state
+        teacher {
+          user {
+            firstName
+            lastName
+          }
+        }
+        category {
+          ...courseCategoryData
+        }
+        thumbnail {
+          url
+        }
+        deleted
+      }
+      address {
+        address1
+        address2
+        city
+        postalCode
+        country
+      }
+      photo {
+        id
+        url
+      }
+    }
+  }
+}
+
+query teacherProfile($id: String!) {
+  teacher(id: $id) {
+    user {
+      firstName
+      lastName
+    }
+    id
+    email
+    gender
+    nationality
+    experiences
+    education
+    certificates
+    jobTitle
+    introduction
+    phoneNumber
+    Course {
+      id
+      title
+      createdAt
+      duration
+      description
+      level
+      state
+      teacher {
+        user {
+          firstName
+          lastName
+        }
+      }
+      category {
+        ...courseCategoryData
+      }
+      thumbnail {
+        url
+      }
+      deleted
+    }
+    address {
+      address1
+      address2
+      city
+      postalCode
+      country
+    }
+    photo {
+      id
+      url
+    }
+  }
+}
+
+query student {
+  me {
+    id
+    firstName
+    lastName
+    role
+    student {
+      bio
+      birthDate
+      email
+      username
+      enrolledCourses {
+        progress
+        createdAt
+        course {
+          id
+          title
+          description
+          duration
+          level
+          category {
+            ...courseCategoryData
+          }
+          thumbnail {
+            id
+            url
+          }
+          teacher {
+            photo {
+              url
+            }
+            user {
+              id
+              firstName
+              lastName
+            }
+          }
+          state
+          published
+          deleted
+        }
+      }
+      legacyAvatar {
+        skinColor
+        hairColor
+        faceItems
+        accessoryItems
+        hairBack
+        hairBangs
+        body
+        head
+        horns
+        leftHand
+        rightHand
+        shirt
+        jacket
+        bottom
+        shoes
+      }
+      avatarImage {
+        id
+        url
+      }
+    }
+  }
+}
+
+query parentReport {
+  me {
+    parent {
+      children {
+        id
+        username
+        avatarImage {
+          id
+          url
+        }
+        friendsRequestee {
+          friendStatus
+          createdAt
+        }
+        friendsRequester {
+          friendStatus
+          createdAt
+        }
+        enrolledCourses {
+          checkpoints {
+            checkpoint {
+              duration
+            }
+          }
+          course {
+            id
+            title
+            duration
+            thumbnail {
+              url
+            }
+            state
+            deleted
+          }
+          state
+          progress
+          createdAt
+        }
+      }
+    }
+  }
+}
+
+query childReport($id: String!, $where: EnrolledCourseWhereInput) {
+  child(id: $id) {
+    id
+    username
+    challengeGallery {
+      id
+      createdAt
+    }
+    friendsRequestee {
+      friendStatus
+      createdAt
+    }
+    friendsRequester {
+      friendStatus
+      createdAt
+    }
+    enrolledCourses(where: $where) {
+      progress
+      createdAt
+      state
+      course {
+        id
+        title
+        duration
+        thumbnail {
+          url
+        }
+      }
+      checkpoints {
+        state
+        checkpoint {
+          duration
+        }
+      }
+    }
+  }
+}
+
+query teacherReport($where: EnrolledCourseWhereInput) {
+  me {
+    teacher {
+      Course {
+        id
+        title
+        level
+        thumbnail {
+          url
+        }
+        enrolledCourses(where: $where) {
+          createdAt
+          studentId
+        }
+        _count {
+          enrolledCourses
+        }
+        state
+        deleted
+      }
+    }
+  }
+}
+
+query listUsers {
+  findAllUsers
+}
+
+query listFriends($where: FriendShipWhereInput) {
+  findAllFriends(where: $where) {
+    friendStatus
+    requestee {
+      id
+      username
+      avatarImage {
+        id
+        url
+      }
+      user {
+        firstName
+        lastName
+      }
+    }
+    requester {
+      id
+      username
+      avatarImage {
+        id
+        url
+      }
+      user {
+        firstName
+        lastName
+      }
+    }
+  }
+}
+
+query findManyUsers($where: UserWhereInput!) {
+  findManyUsers(where: $where) {
+    parent {
+      children {
+        id
+        username
+        AssessmentUser {
+          id
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: backend
+          image: nova-backend
+          # resources:
+          #   limits:
+          #     memory: "128Mi"
+          #     cpu: "500m"
+          ports:
+            - name: host-port
+              containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: config-file
+            - configMapRef:
+                name: backend-config-file
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: host-port
+            failureThreshold: 1
+            periodSeconds: 10
+
+          startupProbe:
+            httpGet:
+              path: /health
+              port: host-port
+            failureThreshold: 30
+            periodSeconds: 10
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+    - port: 8000
+      targetPort: 8000
+      name: backend
+    - port: 80
+      targetPort: 8000
+      name: backend-http

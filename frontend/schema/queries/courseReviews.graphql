@@ -1,0 +1,16 @@
+query courseReviews($id: String!) {
+  findManyCourseReviews(where: { courseId: { equals: $id } }) {
+    comment
+    score
+    createdAt
+    user {
+      firstName
+      lastName
+      student {
+        avatarImage {
+          url
+        }
+      }
+    }
+  }
+}

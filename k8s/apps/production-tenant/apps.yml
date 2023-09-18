@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prister-production
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: backend=registry.gitlab.com/novalearn/core/novalearn-production-backend:latest, frontend=registry.gitlab.com/novalearn/core/novalearn-production-frontend:latest, admin=registry.gitlab.com/novalearn/core/novalearn-production-admin:latest
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/updater-git-creds
+    argocd-image-updater.argoproj.io/backend.update-strategy: digest
+    argocd-image-updater.argoproj.io/frontend.update-strategy: digest
+    argocd-image-updater.argoproj.io/admin.update-strategy: digest
+    argocd-image-updater.argoproj.io/git-branch: main
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: prister-production
+  source:
+    path: k8s/environment/overlays/production-tenant
+    repoURL: git@gitlab.com:novalearn/core
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prister-production
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true

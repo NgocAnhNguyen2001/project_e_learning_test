@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+  - ./configs
+  - ingress.yml
+images:
+  - name: nova-backend
+    newName: registry.gitlab.com/novalearn/core/novalearn-staging-backend
+  - name: nova-frontend
+    newName: registry.gitlab.com/novalearn/core/novalearn-staging-frontend
+  - name: nova-admin
+    newName: registry.gitlab.com/novalearn/core/novalearn-staging-admin
+namespace: nova-staging

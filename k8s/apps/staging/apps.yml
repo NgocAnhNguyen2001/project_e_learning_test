@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: novalearn-staging
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: backend=registry.gitlab.com/novalearn/core/novalearn-staging-backend:latest, frontend=registry.gitlab.com/novalearn/core/novalearn-staging-frontend:latest, admin=registry.gitlab.com/novalearn/core/novalearn-staging-admin:latest
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/updater-git-creds
+    # argocd-image-updater.argoproj.io/write-back-method: argocd
+    argocd-image-updater.argoproj.io/backend.update-strategy: digest
+    argocd-image-updater.argoproj.io/frontend.update-strategy: digest
+    argocd-image-updater.argoproj.io/admin.update-strategy: digest
+    argocd-image-updater.argoproj.io/git-branch: staging
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: novalearn-staging
+  source:
+    path: k8s/environment/overlays/staging
+    repoURL: git@gitlab.com:novalearn/core
+    targetRevision: staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nova-staging
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+#registry.gitlab.com/mindworksint/hologram/hologram-production-frontend

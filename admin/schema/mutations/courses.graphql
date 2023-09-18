@@ -1,0 +1,36 @@
+mutation updateCourse(
+  $data: UpdateCourseInput!
+  $id: String!
+){
+  updateCourse(
+    data: $data
+    id: $id
+  ){
+    ...courseField
+  }
+}
+
+mutation uploadCourseAsset(
+  $courseAssetType: CourseAssetType!,
+  $file: Upload!
+) {
+  uploadCourseAsset(
+    courseAssetType: $courseAssetType,
+    file: $file
+  ) {
+    id
+    name
+    url
+  }
+}
+
+mutation adminDeleteCourse(
+  $where: CourseWhereUniqueInput!
+){
+  adminDeleteCourse(
+    where: $where,
+  ){
+    id
+    title
+  }
+}

@@ -1,0 +1,104 @@
+
+mutation adminUpdateChild($data: AdminUpdateChildDetailsInput!, $id: String!) {
+  adminUpdateChild(data: $data, id: $id) {
+    id
+    user {
+      firstName
+      lastName
+    }
+  }
+}
+
+mutation removeChild($id: String!) {
+  removeChild(id: $id) {
+    id
+  }
+}
+
+mutation changeParentPassword($data: ChangePasswordInput!) {
+  changeParentPassword(data: $data) {
+    id
+  }
+}
+
+mutation changeTeacherPassword($data: ChangePasswordInput!) {
+  changeTeacherPassword(data: $data) {
+    id
+  }
+}
+
+mutation updateTeacher($data: UpdateTeacherDetailsInput!) {
+  updateTeacherDetails(data: $data) {
+    id
+  }
+}
+
+mutation adminUpdateUser(
+  $data: UserUpdateInput!
+  $where: UserWhereUniqueInput!
+){
+  adminUpdateUser(
+    data: $data
+    where: $where
+  ){
+    ...userField
+  }
+}
+
+mutation deleteUser(
+  $where: UserWhereUniqueInput!
+){
+  deleteUser(
+    where: $where
+  ){
+    ...userField
+  }
+}
+
+mutation createUser(
+  $data: UserCreateInput!
+){
+  createUser(
+    data: $data
+  ){
+    ...userField
+  }
+}
+
+mutation adminUploadTeacherProfile(
+  $file: Upload!
+  $id: String!
+){
+  adminUploadTeacherProfile(
+    file: $file
+    id: $id
+  ){
+    ...teacherField
+  }
+}
+
+mutation adminChangePassword(
+  $data: AdminChangePasswordInput!
+){
+  adminChangePassword(
+    data: $data
+  ){
+    ...userField
+  }
+}
+
+mutation adminAddChild(
+  $data: CreateChildInput!
+  $parentEmail: String!
+){
+  adminAddChild(
+    data: $data
+    parentEmail: $parentEmail
+  ){
+    id
+    user {
+      firstName
+      lastName
+    }
+  }
+}

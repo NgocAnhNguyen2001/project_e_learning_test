@@ -1,0 +1,89 @@
+{
+  "Main": {
+    "display_title": {
+      "type": "StructuredText",
+      "config": {
+        "single": "heading2",
+        "label": "Display Title"
+      }
+    },
+    "location": {
+      "type": "StructuredText",
+      "config": {
+        "multi": "paragraph",
+        "label": "Location"
+      }
+    },
+    "uid": {
+      "type": "UID",
+      "config": {
+        "label": "uid"
+      }
+    },
+    "body": {
+      "type": "Slices",
+      "fieldset": "Slice zone",
+      "config": {
+        "labels": null,
+        "choices": {
+          "unordered_list_career": {
+            "type": "Slice",
+            "fieldset": "Unordered List Career",
+            "description": "Unordered list with title and description",
+            "icon": "format_list_bulleted",
+            "display": "list",
+            "non-repeat": {
+              "title": {
+                "type": "StructuredText",
+                "config": {
+                  "single": "heading1",
+                  "label": "Title"
+                }
+              },
+              "description": {
+                "type": "StructuredText",
+                "config": {
+                  "multi": "paragraph,strong,em,hyperlink",
+                  "label": "Description"
+                }
+              }
+            },
+            "repeat": {
+              "list_item": {
+                "type": "StructuredText",
+                "config": {
+                  "single": "paragraph,strong,em,hyperlink",
+                  "label": "List Item"
+                }
+              }
+            }
+          },
+          "company_intro": {
+            "type": "Slice",
+            "fieldset": "Company Intro",
+            "description": "Title text for company introduction ",
+            "icon": "format_color_text",
+            "display": "list",
+            "non-repeat": {
+              "title": {
+                "type": "StructuredText",
+                "config": {
+                  "single": "heading1,heading2,heading3,heading4,heading5,heading6",
+                  "label": "Title"
+                }
+              },
+              "description": {
+                "type": "StructuredText",
+                "config": {
+                  "multi": "paragraph",
+                  "label": "description"
+                }
+              }
+            },
+            "repeat": {}
+          }
+        }
+      }
+    }
+  }
+}

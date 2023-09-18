@@ -1,0 +1,176 @@
+query findAllPost(
+  $cursor: ForumPostWhereUniqueInput
+  $distinct: [ForumPostScalarFieldEnum!]
+  $orderBy: [ForumPostOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: ForumPostWhereInput
+) {
+  findManyPosts(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    id
+    userId
+    text
+    reportCount
+    user {
+      id
+      teamId
+      role
+      firstName
+      lastName
+    }
+    category {
+      id
+      name
+    }
+    parentPostId
+    isSubComment
+    createdAt
+    updatedAt
+  }
+}
+
+query findAllCategories {
+  categories {
+    name
+    id
+  }
+}
+
+query findUniquePost($where: ForumPostWhereUniqueInput!) {
+  findOnePosts(where: $where) {
+    id
+    userId
+    categoryId
+    text
+    category {
+      id
+      name
+    }
+    parentPostId
+    user {
+      id
+      firstName
+      lastName
+      role
+      createdAt
+    }
+    comments {
+      id
+      text
+      isSubComment
+      createdAt
+      updatedAt
+      user {
+        firstName
+        lastName
+      }
+    }
+    ForumReaction {
+      id
+      count
+      emoji
+    }
+    isSubComment
+  }
+}
+
+# query findAllForumComments(
+#   $cursor: ForumCommentWhereUniqueInput
+#   $distinct: [ForumCommentScalarFieldEnum!]
+#   $orderBy: [ForumCommentOrderByWithRelationAndSearchRelevanceInput!]
+#   $skip: Int
+#   $take: Int
+#   $where: ForumCommentWhereInput
+# ) {
+#   findManyForumComments(
+#     cursor: $cursor
+#     distinct: $distinct
+#     orderBy: $orderBy
+#     skip: $skip
+#     take: $take
+#     where: $where
+#   ) {
+#     id
+#     userId
+#     text
+#     createdAt
+#     updatedAt
+#     upvoteCount
+#     downvoteCount
+#     isSubComment
+#     user {
+#       id
+#       firstName
+#       lastName
+#       role
+#       createdAt
+#     }
+#   }
+# }
+
+# query findUniqueForumComment($id: String!) {
+#   findOneForumComment(where: { id: $id }) {
+#     id
+#     text
+#     upvoteCount
+#     deletedAt
+#     downvoteCount
+#     mainCommentId
+#     isSubComment
+#     forumPostId
+#     subComments {
+#       text
+#     }
+#     subCommentCount
+#     user {
+#       role
+#       firstName
+#       lastName
+#       createdAt
+#     }
+#     userId
+#   }
+# }
+
+query countForumPosts(
+  $cursor: ForumPostWhereUniqueInput
+  $distinct: [ForumPostScalarFieldEnum!]
+  $orderBy: [ForumPostOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: ForumPostWhereInput
+) {
+  forumPostsCount(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  )
+}
+
+# query countForumComments(
+#   $cursor: ForumCommentWhereUniqueInput
+#   $distinct: [ForumCommentScalarFieldEnum!]
+#   $orderBy: [ForumCommentOrderByWithRelationAndSearchRelevanceInput!]
+#   $skip: Int
+#   $take: Int
+#   $where: ForumCommentWhereInput
+# ) {
+#   forumCommentsCount(
+#     cursor: $cursor
+#     distinct: $distinct
+#     orderBy: $orderBy
+#     skip: $skip
+#     take: $take
+#     where: $where
+#   )
+# }

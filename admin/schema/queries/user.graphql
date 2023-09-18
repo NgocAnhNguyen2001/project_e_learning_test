@@ -1,0 +1,253 @@
+query me {
+  me {
+    id
+    firstName
+    lastName
+    role
+    parent {
+      email
+      children {
+        id
+        username
+        birthDate
+        loginPattern
+        user {
+          firstName
+          lastName
+        }
+      }
+    }
+    teacher {
+      user {
+        firstName
+        lastName
+      }
+    }
+    admin {
+      email
+    }
+    verified
+  }
+}
+
+query child($id: String!) {
+  child(id: $id) {
+    id
+    username
+    birthDate
+    loginPattern
+    bio
+    email
+    user {
+      firstName
+      lastName
+    }
+  }
+}
+
+query teacher {
+  me {
+    id
+    firstName
+    lastName
+    role
+    teacher {
+      email
+      gender
+      nationality
+      experiences
+      education
+      certificates
+      jobTitle
+      introduction
+      phoneNumber
+      address {
+        address1
+        address2
+        city
+        postalCode
+        country
+      }
+    }
+  }
+}
+
+query student {
+  me {
+    id
+    firstName
+    lastName
+    role
+    student {
+      bio
+      birthDate
+      email
+      username
+      enrolledCourses {
+        progress
+        createdAt
+        course {
+          ...courseData
+        }
+      }
+      legacyAvatar {
+        skinColor
+        hairColor
+        faceItems
+        accessoryItems
+        hairBack
+        hairBangs
+        body
+        head
+        horns
+        leftHand
+        rightHand
+        shirt
+        jacket
+        bottom
+        shoes
+      }
+    }
+  }
+}
+
+query parentReport {
+  me {
+    parent {
+      children {
+        id
+        username
+        enrolledCourses {
+          course {
+            id
+            title
+            duration
+            thumbnail {
+              url
+            }
+          }
+          progress
+          createdAt
+        }
+      }
+    }
+  }
+}
+
+query childReport($id: String!, $where: EnrolledCourseWhereInput) {
+  child(id: $id) {
+    id
+    username
+    enrolledCourses(where: $where) {
+      progress
+      createdAt
+      course {
+        id
+        title
+        duration
+        thumbnail {
+          url
+        }
+      }
+    }
+  }
+}
+
+query teacherReport($where: EnrolledCourseWhereInput) {
+  me {
+    teacher {
+      Course {
+        id
+        title
+        level
+        thumbnail {
+          url
+        }
+        enrolledCourses(where: $where) {
+          createdAt
+        }
+        _count {
+          enrolledCourses
+        }
+      }
+    }
+  }
+}
+
+query adminFindUniqueUser($where: UserWhereUniqueInput!) {
+  adminFindUniqueUser(where: $where) {
+    ...userField
+    parent {
+      ...parentField
+    }
+    teacher {
+      ...teacherField
+      photo {
+        url
+      }
+    }
+    student {
+      ...studentField
+      parentId
+      parent {
+        id
+        email
+      }
+    }
+  }
+}
+query adminFindManyUsers(
+  $cursor: UserWhereUniqueInput
+  $distinct: [UserScalarFieldEnum!]
+  $orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: UserWhereInput
+) {
+  adminFindManyUsers(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    ...userField
+    parent {
+      ...parentField
+    }
+    teacher {
+      ...teacherField
+      photo {
+        url
+      }
+    }
+    student {
+      ...studentField
+      enrolledCourses {
+        progress
+      }
+      avatarImage {
+        url
+      }
+    }
+  }
+}
+
+query adminCountUser(
+  $cursor: UserWhereUniqueInput
+  $distinct: [UserScalarFieldEnum!]
+  $orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: UserWhereInput
+) {
+  adminCountUser(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  )
+}

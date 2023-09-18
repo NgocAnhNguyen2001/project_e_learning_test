@@ -1,0 +1,178 @@
+query allAccessoryOptions {
+  accessoriesCatalog {
+    id
+    head
+    eyes
+    items
+    pet
+  }
+}
+
+query allCharacterOptions {
+  charactersCatalogs {
+    id
+    hair
+    face
+    shoes
+    skin
+    tops
+    bottom
+  }
+}
+
+query accessoryOptions($type: AccessoryCatalogType) {
+  accessoriesCatalog(where: { catalogType: { equals: $type } }) {
+    id
+    head
+    eyes
+    items
+    pet
+  }
+}
+
+query characterOptions($type: CharacterCatalogType) {
+  charactersCatalogs(where: { catalogType: { equals: $type } }) {
+    id
+    hair
+    face
+    shoes
+    skin
+    tops
+    bottom
+  }
+}
+
+query allCatalogOptions {
+  getCatalog {
+    categoryCatelog {
+      type
+      parentCategory {
+        label
+      }
+      subCategories {
+        label
+      }
+      id
+      label
+      avatarAssetCatelog {
+        type
+        imgUrl
+        label
+        isActive
+        # return asset object, for save user avatar usage
+        normalAvatarAsset {
+          ...normalAvatarAsset
+        }
+        hairAvatarAsset {
+          ...hairAvatarAsset
+        }
+        skinAvatarAsset {
+          ...skinAvatarAsset
+        }
+      }
+    }
+    colourCatelog {
+      skin {
+        withCatelog {
+          ...skinAvatarAsset
+        }
+        fullBody {
+          ...skinAvatarAsset
+        }
+        halfBody {
+          ...skinAvatarAsset
+        }
+        colour {
+          ...avatarAssetColour
+        }
+      }
+      hair {
+        colour {
+          ...avatarAssetColour
+        }
+        back {
+          ...hairAvatarAsset
+        }
+        bangs {
+          ...hairAvatarAsset
+        }
+      }
+    }
+    colours {
+      ...avatarAssetColour
+    }
+  }
+}
+
+query catalogOptions($type: ItemCatalogType) {
+  getCatalog(where: { type: { equals: $type } }) {
+    categoryCatelog {
+      type
+      parentCategory {
+        label
+      }
+      subCategories {
+        label
+      }
+      id
+      label
+      avatarAssetCatelog {
+        type
+        imgUrl
+        label
+        isActive
+        normalAvatarAsset {
+          ...normalAvatarAsset
+        }
+        hairAvatarAsset {
+          ...hairAvatarAsset
+        }
+        skinAvatarAsset {
+          ...skinAvatarAsset
+        }
+      }
+    }
+    colourCatelog {
+      skin {
+        withCatelog {
+          ...skinAvatarAsset
+        }
+        fullBody {
+          ...skinAvatarAsset
+        }
+        halfBody {
+          ...skinAvatarAsset
+        }
+        colour {
+          ...avatarAssetColour
+        }
+      }
+      hair {
+        colour {
+          ...avatarAssetColour
+        }
+        back {
+          ...hairAvatarAsset
+        }
+        bangs {
+          ...hairAvatarAsset
+        }
+      }
+    }
+    colours {
+      ...avatarAssetColour
+    }
+  }
+}
+
+query getAvatar {
+  getUserAvatar {
+    ...newUserAvatar
+  }
+}
+
+query generateAvatar {
+  generateRandomAvatar {
+    ...newUserAvatar
+  }
+}

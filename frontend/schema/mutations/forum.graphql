@@ -1,0 +1,54 @@
+mutation createPost(
+  $parentPostId: String
+  $categoryId: String!
+  $text: String!
+) {
+  createOnePost(
+    data: { parentPostId: $parentPostId, categoryId: $categoryId, text: $text }
+  ) {
+    id
+    text
+  }
+}
+
+mutation deletePost($id: String!) {
+  deleteOnePost(id: $id) {
+    id
+    userId
+    text
+  }
+}
+
+mutation updatePost($data: UpdatePostInput!, $id: String!) {
+  updateOnePost(data: $data, id: $id) {
+    id
+    userId
+    text
+  }
+}
+
+mutation reactPost($data: UserReactInput!) {
+  userReact(data: $data) {
+    postId
+    userId
+  }
+}
+
+mutation reportPost($data: ForumReportCreateInput!) {
+  createOneForumReport(data: $data) {
+    postId
+    userId
+  }
+}
+
+mutation createOneBookmark($postId: String!) {
+  createOneBookmark(postId: $postId) {
+    id
+    userId
+    postId
+  }
+}
+
+mutation deleteOneBookmark($id: String!) {
+  deleteOneBookmark(bookmarkId: $id)
+}

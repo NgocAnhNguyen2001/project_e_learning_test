@@ -1,0 +1,93 @@
+
+# This file is auto generated, do not edit directly
+
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+image: docker:latest
+stages:
+  - build-app
+frontend:
+  stage: build-app
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      changes:
+        - .gitlab-ci.yml
+        - frontend/**/*
+      variables:
+        TARGET_IMAGE: registry.gitlab.com/novalearn/core/novalearn-production-frontend:latest
+        ENV_FILE_TYPE: production
+    - if: $CI_COMMIT_BRANCH == "staging"
+      changes:
+        - .gitlab-ci.yml
+        - frontend/**/*
+      variables:
+        TARGET_IMAGE: registry.gitlab.com/novalearn/core/novalearn-staging-frontend:latest
+        ENV_FILE_TYPE: staging
+    - if: $CI_COMMIT_BRANCH == "test-ci"
+      changes:
+        - .gitlab-ci.yml
+        - frontend/**/*
+      variables:
+        TARGET_IMAGE: registry.gitlab.com/novalearn/core/test:frontend
+        ENV_FILE_TYPE: staging
+  variables:
+    DOCKERFILE_PATH: frontend/Dockerfile
+  script:
+    - docker build --pull -t $TARGET_IMAGE frontend -f $DOCKERFILE_PATH --build-arg ENV_FILE_TYPE=$ENV_FILE_TYPE
+    - docker push -q $TARGET_IMAGE
+admin:
+  stage: build-app
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      changes:
+        - .gitlab-ci.yml
+        - admin/**/*
+      variables:
+        TARGET_IMAGE: registry.gitlab.com/novalearn/core/novalearn-production-admin:latest
+        ENV_FILE_TYPE: production
+    - if: $CI_COMMIT_BRANCH == "staging"
+      changes:
+        - .gitlab-ci.yml
+        - admin/**/*
+      variables:
+        TARGET_IMAGE: registry.gitlab.com/novalearn/core/novalearn-staging-admin:latest
+        ENV_FILE_TYPE: staging
+    - if: $CI_COMMIT_BRANCH == "test-ci"
+      changes:
+        - .gitlab-ci.yml
+        - admin/**/*
+      variables:
+        TARGET_IMAGE: registry.gitlab.com/novalearn/core/test:admin
+        ENV_FILE_TYPE: staging
+  variables:
+    DOCKERFILE_PATH: admin/Dockerfile
+  script:
+    - docker build --pull -t $TARGET_IMAGE admin -f $DOCKERFILE_PATH --build-arg ENV_FILE_TYPE=$ENV_FILE_TYPE
+    - docker push -q $TARGET_IMAGE
+backend:
+  stage: build-app
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      changes:
+        - .gitlab-ci.yml
+        - backend/**/*
+      variables:
+        TARGET_IMAGE: registry.gitlab.com/novalearn/core/novalearn-production-backend:latest
+    - if: $CI_COMMIT_BRANCH == "staging"
+      changes:
+        - .gitlab-ci.yml
+        - backend/**/*
+      variables:
+        TARGET_IMAGE: registry.gitlab.com/novalearn/core/novalearn-staging-backend:latest
+    - if: $CI_COMMIT_BRANCH == "test-ci"
+      changes:
+        - .gitlab-ci.yml
+        - backend/**/*
+      variables:
+        TARGET_IMAGE: registry.gitlab.com/novalearn/core/test:backend
+  variables:
+    DOCKERFILE_PATH: backend/Dockerfile
+  script:
+    - docker build --pull -t $TARGET_IMAGE backend -f $DOCKERFILE_PATH --build-arg ENV_FILE_TYPE=$ENV_FILE_TYPE
+    - docker push -q $TARGET_IMAGE

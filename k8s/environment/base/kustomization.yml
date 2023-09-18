@@ -1,0 +1,6 @@
+resources:
+  - regcred.yml
+  - frontend.yml
+  - admin.yml
+  - backend.yml
+namespace: base-app

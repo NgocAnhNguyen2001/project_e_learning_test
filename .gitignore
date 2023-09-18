@@ -1,0 +1,8 @@
+./**/node_modules/
+./**/dist/
+./**/.next/
+
+
+
+./backend/src/*.graphql
+.env

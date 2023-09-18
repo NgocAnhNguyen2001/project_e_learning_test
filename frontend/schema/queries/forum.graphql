@@ -1,0 +1,134 @@
+query findAllPost(
+  $cursor: ForumPostWhereUniqueInput
+  $distinct: [ForumPostScalarFieldEnum!]
+  $orderBy: [ForumPostOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: ForumPostWhereInput
+) {
+  findManyPostsAndReactions(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    post {
+      id
+      text
+      userId
+      user {
+        id
+        teamId
+        role
+        firstName
+        lastName
+        student {
+          avatarImage {
+            url
+          }
+        }
+      }
+      categoryId
+      category {
+        id
+        name
+        activeImgUrl
+      }
+      isSubComment
+      commentCount
+      parentPost {
+        userId
+        user {
+          id
+          firstName
+          lastName
+        }
+        id
+        text
+        createdAt
+        parentPost {
+          id
+          user {
+            id
+            firstName
+            lastName
+          }
+        }
+        categoryId
+        category {
+          name
+          activeImgUrl
+          id
+        }
+      }
+      createdAt
+      updatedAt
+      UserForumReaction {
+        reaction {
+          emoji
+        }
+      }
+      ForumReaction {
+        emoji
+        count
+      }
+    }
+  }
+}
+
+query findUniquePost($where: ForumPostWhereUniqueInput!) {
+  findOnePosts(where: $where) {
+    id
+    text
+    userId
+    user {
+      id
+      teamId
+      role
+      firstName
+      lastName
+      student {
+        avatarImage {
+          url
+        }
+      }
+    }
+    categoryId
+    category {
+      id
+      name
+    }
+    isSubComment
+    commentCount
+    parentPost {
+      userId
+      user {
+        firstName
+        lastName
+      }
+      id
+      text
+    }
+    createdAt
+    updatedAt
+    UserForumReaction {
+      reaction {
+        emoji
+      }
+    }
+    ForumReaction {
+      emoji
+      count
+    }
+  }
+}
+
+query findManyBookmarks($where: ForumPostBookmarkWhereInput!) {
+  findManyBookmarks(where: $where) {
+    id
+    userId
+    postId
+  }
+}

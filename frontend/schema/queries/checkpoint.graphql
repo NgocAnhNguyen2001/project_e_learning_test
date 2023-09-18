@@ -1,0 +1,84 @@
+query checkpoint($id: String) {
+  checkpoint(where: { id: $id }) {
+    id
+    title
+    link
+    description
+    order
+    duration
+    course {
+      id
+      category {
+        name
+      }
+    }
+    parentCheckpointId
+    parentCheckPoint {
+      courseId
+    }
+    image {
+      id
+      name
+      url
+    }
+    title
+    type
+    enrolledCheckpoints {
+      id
+      enrolledStudentId
+      state
+    }
+    ...blockData
+  }
+}
+
+query findManyCheckpoints(
+  $cursor: CheckpointWhereUniqueInput
+  $distinct: [CheckpointScalarFieldEnum!]
+  $orderBy: [CheckpointOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: CheckpointWhereInput
+) {
+  checkpoints(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    id
+  }
+}
+
+query getSelfEnrolledCheckpoint($checkpointId: String!, $courseId: String!) {
+  getSelfEnrolledCheckpoint(checkpointId: $checkpointId, courseId: $courseId) {
+    id
+  }
+}
+
+query findManyChallenges($where: ChallengeWhereInput) {
+  findChallenges(where: $where) {
+    id
+    assetId
+    asset {
+      id
+      fileType
+      url
+      name
+    }
+    _count {
+      likes
+    }
+    challengeBlockId
+    challengeBlock {
+      challengeGallery {
+        id
+        likes {
+          likerId
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+configMapGenerator:
+  - name: config-file
+    envs:
+      - .env
+  - name: backend-config-file
+    envs:
+      - backend.env
+  - name: frontend-config-file
+    envs:
+      - frontend.env
+  - name: admin-config-file
+    envs:
+      - admin.env

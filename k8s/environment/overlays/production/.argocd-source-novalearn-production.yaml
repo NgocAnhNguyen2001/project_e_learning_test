@@ -1,0 +1,5 @@
+kustomize:
+  images:
+  - registry.gitlab.com/novalearn/core/novalearn-production-backend@sha256:latest
+  - registry.gitlab.com/novalearn/core/novalearn-production-frontend@sha256:latest
+  - registry.gitlab.com/novalearn/core/novalearn-production-admin@sha256:latest

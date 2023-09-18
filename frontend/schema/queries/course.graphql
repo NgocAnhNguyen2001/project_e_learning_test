@@ -1,0 +1,109 @@
+query categories {
+  categories {
+    ...courseCategoryData
+  }
+}
+
+query course($id: String) {
+  course(where: { id: $id }) {
+    ...courseData
+  }
+}
+
+query courses($where: CourseWhereInput) {
+  courses(where: $where) {
+    ...optimisedCourseData
+  }
+}
+
+query homepageCourses($where: CourseWhereInput) {
+  courses(where: $where) {
+    id
+    title
+    level
+    category {
+      ...courseCategoryData
+    }
+    thumbnail {
+      url
+    }
+    duration
+    teacher {
+      user {
+        firstName
+        lastName
+      }
+    }
+  }
+}
+
+query enrolledCourseProgress($id: String!) {
+  course(where: { id: $id }) {
+    title
+    thumbnail {
+      id
+      url
+    }
+    checkpoints {
+      ...checkpointData
+    }
+  }
+  enrolledCourse(where: { id: $id }) {
+    checkpoints {
+      checkpointId
+      id
+      lastTimeChecked
+      state
+    }
+    lastTimeChecked
+    progress
+    state
+  }
+}
+
+query enrolledCourse($id: String!) {
+  enrolledCourse(where: { id: $id }) {
+    studentId
+    checkpoints {
+      id
+      checkpoint {
+        ...checkpointData
+      }
+      lastTimeChecked
+      state
+    }
+    lastTimeChecked
+    progress
+    state
+  }
+}
+
+query courseWithEnrolled($id: String!) {
+  course(where: { id: $id }) {
+    ...basicCourseData
+    rating
+    enrolledCourses {
+      studentId
+      state
+      student {
+        username
+        avatarImage {
+          url
+        }
+      }
+    }
+    checkpoints {
+      ...checkpointData
+    }
+  }
+}
+
+query coursemapPreview($id: String!) {
+  course(where: { id: $id }) {
+    ...courseData
+  }
+}
+
+query countCourse($where: CourseWhereInput) {
+  adminCountCourse(where: $where)
+}

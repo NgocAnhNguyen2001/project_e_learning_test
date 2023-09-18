@@ -1,0 +1,81 @@
+mutation createPost(
+  $parentPostId: String
+  $categoryId: String!
+  $text: String!
+) {
+  createOnePost(
+    data: { parentPostId: $parentPostId, categoryId: $categoryId, text: $text }
+  ) {
+    id
+    text
+  }
+}
+
+mutation deletePost($id: String!) {
+  deleteOnePost(id: $id) {
+    id
+    userId
+    text
+    parentPostId
+  }
+}
+
+mutation updatePost($data: UpdatePostInput!, $id: String!) {
+  updateOnePost(data: $data, id: $id) {
+    id
+    userId
+    text
+  }
+}
+
+# mutation uploadPostAsset(
+#   $file: Upload!
+#   $forumPostAssetType: ForumPostAssetType!
+# ) {
+#   uploadForumPostAsset(file: $file, forumPostAssetType: $forumPostAssetType) {
+#     id
+#     url
+#   }
+# }
+
+# mutation createForumComment(
+#   $forumPostId: String!
+#   $isSubComment: Boolean!
+#   $mainCommentId: String
+#   $text: String!
+# ) {
+#   createForumComment(
+#     data: {
+#       forumPostId: $forumPostId
+#       isSubComment: $isSubComment
+#       mainCommentId: $mainCommentId
+#       text: $text
+#     }
+#   ) {
+#     id
+#     user {
+#       firstName
+#       lastName
+#     }
+#   }
+# }
+
+# mutation deleteForumComment($id: String!) {
+#   deleteForumComment(where: { id: $id }) {
+#     id
+#     userId
+#     text
+#     mainCommentId
+#     forumPostId
+#   }
+# }
+
+# mutation updateForumComment($data: UpdateCommentInput!, $id: String!) {
+#   updateForumComment(data: $data, id: $id) {
+#     id
+#     text
+#     userId
+#     mainCommentId
+#     forumPostId
+#   }
+# }

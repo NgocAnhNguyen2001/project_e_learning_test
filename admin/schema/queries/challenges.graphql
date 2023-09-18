@@ -1,0 +1,121 @@
+query findManyChallenges(
+  $cursor: ChallengeWhereUniqueInput
+  $distinct: [ChallengeScalarFieldEnum!]
+  $orderBy: [ChallengeOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: ChallengeWhereInput
+) {
+  challenges(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    id
+    asset {
+      url
+    }
+    challengeBlock {
+      block {
+        checkpoint {
+          title
+          course {
+            title
+          }
+        }
+      }
+    }
+    creator {
+      id
+      user {
+        firstName
+      }
+    }
+    createdAt
+  }
+}
+
+query findOneChallenge($id: String!) {
+  challenge(id: $id) {
+    id
+    asset {
+      name
+      url
+    }
+    challengeBlock {
+      block {
+        checkpoint {
+          title
+          course {
+            title
+          }
+        }
+      }
+    }
+    creator {
+      id
+      avatarImage {
+        url
+      }
+      user {
+        firstName
+        lastName
+        createdAt
+      }
+    }
+    createdAt
+  }
+}
+
+query adminCountChallenge(
+  $cursor: ChallengeWhereUniqueInput
+  $distinct: [ChallengeScalarFieldEnum!]
+  $orderBy: [ChallengeOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: ChallengeWhereInput
+) {
+  adminCountChallenge(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  )
+}
+
+query findChallengeComments(
+  $cursor: ChallengeCommentWhereUniqueInput
+  $distinct: [ChallengeCommentScalarFieldEnum!]
+  $orderBy: [ChallengeCommentOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: ChallengeCommentWhereInput
+) {
+  challengeComments(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    id
+    text
+    commenterId
+    commenter {
+      firstName
+      lastName
+      student {
+        avatarImage {
+          url
+        }
+      }
+    }
+    createdAt
+  }
+}

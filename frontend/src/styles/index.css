@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+.react-select__control {
+  @apply !rounded-xl py-1 !border-gray-200 !border-2 !border-b-4 focus:!ring-0 focus:!border-black;
+  @apply !font-bold !shadow-none !uppercase;
+}
+
+.react-select__menu {
+  @apply !rounded-xl;
+  @apply !overflow-hidden !py-0;
+  @apply !overflow-y-scroll;
+}
+
+.react-select__menu-list {
+  @apply !py-0;
+}
+
+.react-select__option {
+  @apply border-b-2 !py-3;
+  @apply font-bold !uppercase;
+  /* @apply hover:!bg-blue-50; */
+}
+
+.react-select__option--is-selected {
+  @apply !bg-brand1-50 !text-brand1-600;
+}
+
+.react-select__indicator-separator {
+  @apply !hidden;
+}
+
+.react-pattern-lock__pattern-wrapper {
+  @apply bg-white shadow-xl rounded-3xl;
+}
+
+.react-pattern-lock__pattern-wrapper.display {
+  @apply bg-white rounded-lg shadow-xl;
+}
+
+.react-pattern-lock__pattern-wrapper
+  .react-pattern-lock__point-wrapper
+  .react-pattern-lock__point
+  .react-pattern-lock__point-inner {
+  @apply bg-teal-500;
+}
+
+.react-pattern-lock__pattern-wrapper
+  .react-pattern-lock__point-wrapper
+  .react-pattern-lock__point {
+  @apply bg-white border-2 border-teal-500 rounded-full shadow-xl;
+}
+
+.react-pattern-lock__pattern-wrapper.display
+  .react-pattern-lock__point-wrapper
+  .react-pattern-lock__point {
+  @apply bg-white border border-teal-500 rounded-full shadow-xl;
+}
+
+.react-pattern-lock__pattern-wrapper
+  .react-pattern-lock__connector-wrapper
+  .react-pattern-lock__connector {
+  @apply bg-teal-500;
+}
+
+.react-pattern-lock__pattern-wrapper.disabled
+  .react-pattern-lock__connector-wrapper
+  .react-pattern-lock__connector {
+  @apply bg-teal-500;
+}
+
+.font-header-default {
+  @apply tracking-header font-header;
+}
+
+.react-datepicker-wrapper .react-datepicker__input-container input {
+  @apply block w-full placeholder-gray-400 placeholder-opacity-50 border-2 border-gray-200 bg-gray-50 rounded-xl focus:ring-0 focus:border-black;
+}
+
+.PhoneInput {
+  @apply block w-full px-4 text-black placeholder-gray-400 placeholder-opacity-50 border-2 border-gray-200 bg-gray-50 rounded-xl focus:ring-0 focus:border-black;
+}
+
+.PhoneInput input {
+  @apply border-none bg-gray-50 focus:ring-0;
+}
+
+input.react-select__input {
+  @apply uppercase border-none outline-none focus:ring-0;
+}
+
+/* Sendbird styles */
+div.sendbird-modal-root,
+div.sendbird-modal,
+.sendbird-theme--dark .sendbird-dropdown__reaction-bar,
+div.sendbird-modal__content {
+  z-index: 1000;
+}
+div.sendbird-modal__backdrop {
+  z-index: 999;
+}
+
+/* Backgrounds */
+.sendbird-theme--dark .sendbird-conversation,
+.sendbird-theme--dark .sendbird-channel-list,
+.sendbird-theme--dark .sendbird-channel-header {
+  border: 2px solid #5f5674 !important;
+  border-radius: 2px;
+}
+
+/* Checkmark */
+.sendbird-theme--dark .sendbird-checkbox .sendbird-checkbox--checkmark:after {
+  border: solid white !important;
+  border-width: 0 2px 2px 0 !important;
+}
+
+/* Message color */
+.sendbird-theme--dark .sendbird-text-message-item-body.outgoing {
+  color: white;
+}
+
+/* Overflow styling */
+.sendbird-conversation__messages .sendbird-conversation__messages-padding {
+  overflow: auto !important;
+}
+
+.uppy-DashboardContent-back {
+  display: none;
+}
+
+.highlightedMask {
+  stroke: black;
+  stroke-width: 3px;
+}
+
+.swiper-green-active {
+  margin: 0.6rem;
+  opacity: 0.1;
+  /* background-color: #1DBE92 !important; */
+  background-image: linear-gradient(to right, #70F192 , #4B7F9B) !important;
+}
+
+.swiper-orange-active {
+  margin: 0.6rem;
+  opacity: 0.1;
+  background-image: linear-gradient(to right, #E5B553 , #CE5766) !important;
+}
+
+.swiper-wrapper{
+  margin-bottom: 40px;
+} 
+.swiper-pagination-bullet-size-custom{
+  width: 0.8rem !important;
+  height: 0.8rem !important;
+} 
+
+.z-issue {
+  -webkit-transform: translateZ(100px);
+}
+
+.svg-white{
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(143%) contrast(103%);
+}
+
+@media only screen and (min-width: 600px) {
+  .custom_fc_frame {
+  right: 20px !important;
+  bottom: 20px !important;
+  transform: scale(1.1);
+  }
+}
+
+
+@media only screen and (min-width: 1000px) {
+  .custom_fc_frame {
+  right: 60px !important;
+  bottom: 60px !important;
+  transform: scale(1.2);
+  }
+}

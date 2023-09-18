@@ -1,0 +1,189 @@
+{
+  "name": "mindworks-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "svgr": "npx @svgr/cli -d src/components/icons --ignore-existing --icon --typescript public/icons",
+    "build:analyze": "ANALYZE=true npm run build",
+    "apollo:download-schema": "apollo client:download-schema schema.graphql",
+    "apollo:generate-types": "rm -rf __generated__ && apollo client:codegen --target typescript --outputFlat",
+    "apollo:sync": "npm run apollo:download-schema && npm run apollo:generate-types",
+    "lint": "eslint \"**/*.{ts,tsx}\"",
+    "lintfix": "eslint \"**/*.{ts,tsx}\" --fix",
+    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx}'",
+    "test": "jest -c test/jest.config.js",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --config video=false",
+    "cypress:test": "start-server-and-test start http://localhost:3000 cypress:run",
+    "gql": "graphql-codegen --config codegen.yml",
+    "generate": "graphql-codegen "
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@apollo/client": "3.5.6",
+    "@chakra-ui/icons": "^1.1.7",
+    "@chakra-ui/pro-theme": "^0.0.41",
+    "@chakra-ui/react": "^1.8.6",
+    "@chakra-ui/theme": "^1.14.0",
+    "@egjs/flicking-plugins": "^4.2.2",
+    "@egjs/react-flicking": "^4.4.3",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@graphql-codegen/cli": "2.3.0",
+    "@graphql-codegen/named-operations-object": "^2.2.1",
+    "@graphql-codegen/typescript": "^2.4.1",
+    "@headlessui/react": "^1.4.2",
+    "@hookform/resolvers": "^2.8.5",
+    "@popperjs/core": "^2.11.2",
+    "@react-hook/mouse-position": "^4.1.3",
+    "@sentry/react": "^6.19.7",
+    "@sentry/tracing": "^6.19.7",
+    "@svgr/webpack": "^6.2.1",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/forms": "^0.4.0",
+    "@tailwindcss/line-clamp": "^0.3.0",
+    "@tailwindcss/typography": "^0.5.0",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@uppy/core": "^2.1.8",
+    "@uppy/image-editor": "^1.1.1",
+    "@uppy/react": "^2.1.2",
+    "apollo-upload-client": "^17.0.0",
+    "axios": "^0.24.0",
+    "clsx": "^1.1.1",
+    "date-fns": "^2.28.0",
+    "dayjs": "^1.10.7",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest-dom": "^3.9.2",
+    "eslint-plugin-testing-library": "^5.0.1",
+    "framer-motion": "^6",
+    "graphql": "15.5.1",
+    "graphql-codegen-apollo-next-ssr": "1.7.1",
+    "intersection-observer": "^0.12.0",
+    "isomorphic-dompurify": "^0.17.0",
+    "js-cookie": "^3.0.1",
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
+    "marked": "^4.0.7",
+    "merge-images": "^2.0.0",
+    "nanoid": "^3.1.30",
+    "next": "12.0.7",
+    "postcss-import": "^14.0.2",
+    "prismic-javascript": "^3.0.2",
+    "prismic-reactjs": "^1.3.4",
+    "react": "17.0.2",
+    "react-accessible-accordion": "^4.0.0",
+    "react-datepicker": "^4.5.0",
+    "react-dnd": "^14.0.5",
+    "react-dnd-html5-backend": "^14.1.0",
+    "react-dom": "17.0.2",
+    "react-dropzone": "^11.5.1",
+    "react-error-boundary": "^3.1.4",
+    "react-hook-form": "^7.22.1",
+    "react-icons": "^4.3.1",
+    "react-markdown-editor-lite": "^1.3.2",
+    "react-pattern-lock": "^12.0.12",
+    "react-phone-number-input": "^3.1.44",
+    "react-player": "^2.10.1",
+    "react-popper": "^2.2.5",
+    "react-select": "^5.2.1",
+    "react-share": "^4.4.0",
+    "react-spinners": "^0.11.0",
+    "react-toastify": "^8.1.0",
+    "stylis": "^4.0.13",
+    "tailwindcss-plugin-fancy": "^3.2.0",
+    "type-fest": "^2.8.0",
+    "use-debounce": "^7.0.1",
+    "use-file-picker": "^1.4.2",
+    "utf-8-validate": "^5.0.7",
+    "zod": "^3.11.6",
+    "zustand": "^3.6.7"
+  },
+  "devDependencies": {
+    "@graphql-codegen/fragment-matcher": "^3.2.0",
+    "@graphql-codegen/import-types-preset": "^2.1.8",
+    "@graphql-codegen/introspection": "^2.1.0",
+    "@graphql-codegen/typescript-operations": "^2.2.1",
+    "@graphql-codegen/typescript-react-apollo": "^3.2.2",
+    "@next/bundle-analyzer": "^12.0.7",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-knobs": "^6.2.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^6.4.9",
+    "@testing-library/cypress": "^8.0.2",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@types/apollo-upload-client": "^17.0.0",
+    "@types/faker": "^5.5.9",
+    "@types/jsonwebtoken": "^8.5.6",
+    "@types/lodash": "^4.14.178",
+    "@types/marked": "^4.0.1",
+    "@types/react": "17.0.37",
+    "@types/react-datepicker": "^4.3.3",
+    "@types/react-dom": "^17.0.11",
+    "autoprefixer": "^10.4.0",
+    "eslint": "8.4.1",
+    "eslint-config-next": "12.0.7",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "faker": "^5.5.3",
+    "husky": "^7.0.4",
+    "jsonwebtoken": "^8.5.1",
+    "postcss": "^8.4.5",
+    "prettier": "^2.5.1",
+    "sendbird-uikit": "^2.6.0",
+    "tailwindcss": "^3.0.5",
+    "typescript": "4.5.4"
+  },
+  "msw": {
+    "workerDirectory": "public"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^@/(.+)": "<rootDir>/src/$1"
+    },
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/**/*.stories.{js,jsx,ts,tsx}",
+      "!src/test/**/*.{js,jsx,ts,tsx}"
+    ]
+  },
+  "eslintConfig": {
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
+  },
+  "lint-staged": {
+    "*.+(js|ts|tsx)": [
+      "yarn lint"
+    ]
+  }
+}

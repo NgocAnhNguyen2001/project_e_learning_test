@@ -1,0 +1,15 @@
+mutation notificationMarkAllAsRead {
+    notificationMarkAllAsRead {
+        notification {
+            href
+            id
+            message
+            title
+        }
+    }
+}
+
+mutation updateUserNotificationSetting($enableNotification: Boolean!) {
+  updateUserNotificationSetting(enableNotification: $enableNotification) 
+  
+}

@@ -1,0 +1,92 @@
+mutation createAvatarAssetCatalog($data: AvatarAssetCatelogCreateInput!) {
+  createAvatarAssetCatalog(data: $data) {
+    id
+    label
+    imgUrl
+    type
+  }
+}
+
+mutation updateAvatarAssetCatalog(
+  $data: AvatarAssetCatelogUpdateInput!
+  $where: AvatarAssetCatelogWhereUniqueInput!
+) {
+  updateAvatarAssetCatalog(data: $data, where: $where) {
+    id
+    label
+    imgUrl
+    type
+  }
+}
+
+mutation deleteAvatarAssetCatalog($where: AvatarAssetCatelogWhereUniqueInput!) {
+  deleteAvatarAssetCatalog(where: $where) {
+    id
+    label
+    type
+  }
+}
+
+mutation uploadAvatarAsset(
+  $assetType: AvatarAssetCatelogTypes!
+  $file: Upload!
+) {
+  uploadAvatarAsset(assetType: $assetType, file: $file)
+}
+
+mutation deleteNormalAvatarAsset($where: NormalAvatarAssetWhereUniqueInput!) {
+  deleteNormalAvatarAsset(where: $where) {
+    id
+    imgUrl
+    label
+  }
+}
+
+mutation deleteHairAvatarAsset($where: HairAvatarAssetWhereUniqueInput!) {
+  deleteHairAvatarAsset(where: $where) {
+    id
+    imgUrl
+    label
+  }
+}
+
+mutation deleteSkinAvatarAsset($where: SkinAvatarAssetWhereUniqueInput!) {
+  deleteSkinAvatarAsset(where: $where) {
+    id
+    imgUrl
+    label
+  }
+}
+
+mutation editNormalAvatarAsset(
+  $data: NormalAvatarAssetUpdateInput!
+  $where: NormalAvatarAssetWhereUniqueInput!
+) {
+  updateNormalAvatarAsset(data: $data, where: $where) {
+    id
+    imgUrl
+    label
+  }
+}
+
+mutation editSkinAvatarAsset(
+  $data: SkinAvatarAssetUpdateInput!
+  $where: SkinAvatarAssetWhereUniqueInput!
+) {
+  updateSkinAvatarAsset(data: $data, where: $where) {
+    id
+    imgUrl
+    label
+  }
+}
+
+mutation editHairAvatarAsset(
+  $data: HairAvatarAssetUpdateInput!
+  $where: HairAvatarAssetWhereUniqueInput!
+) {
+  updateHairAvatarAsset(data: $data, where: $where) {
+    id
+    imgUrl
+    label
+  }
+}

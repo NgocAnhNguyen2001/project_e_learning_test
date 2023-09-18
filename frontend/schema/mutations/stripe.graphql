@@ -1,0 +1,3 @@
+mutation checkoutSubscription($priceId: String!) {
+  checkoutSubscriptionPlan(data: { priceId: $priceId })
+}

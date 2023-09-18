@@ -1,0 +1,19 @@
+query findManyAssessmentUser {
+  findManyAssessmentUser {
+    id
+    grade
+    studentId
+    courseId
+    enrolledCheckpointId
+  }
+}
+
+query findOneAssessmentUser($where: AssessmentUserWhereInput) {
+  findOneAssessmentUser(where: $where) {
+    id
+    grade
+    studentId
+    courseId
+    enrolledCheckpointId
+  }
+}

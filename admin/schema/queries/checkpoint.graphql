@@ -1,0 +1,19 @@
+query findManyCheckpoints(
+  $cursor: CheckpointWhereUniqueInput
+  $distinct: [CheckpointScalarFieldEnum!]
+  $orderBy: [CheckpointOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: CheckpointWhereInput
+){
+  checkpoints(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ){
+    ...checkpointField
+  }
+}

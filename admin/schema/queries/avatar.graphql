@@ -1,0 +1,353 @@
+query findManyAvatarAssetCatalog(
+  $cursor: AvatarAssetCatelogWhereUniqueInput
+  $distinct: [AvatarAssetCatelogScalarFieldEnum!]
+  $orderBy: [AvatarAssetCatelogOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: AvatarAssetCatelogWhereInput
+) {
+  findManyAvatarAssetCatalog(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    id
+    label
+    imgUrl
+    type
+    createdAt
+    updatedAt
+    isActive
+    avatarAssetCategory {
+      label
+      id
+    }
+  }
+}
+
+query findManyAvatarAssetCategory(
+  $cursor: AvatarAssetCategoryWhereUniqueInput
+  $distinct: [AvatarAssetCategoryScalarFieldEnum!]
+  $orderBy: [AvatarAssetCategoryOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: AvatarAssetCategoryWhereInput
+) {
+  findManyAvatarAssetCategory(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    id
+    label
+    subCategories {
+      id
+      label
+    }
+  }
+}
+
+query findUniqueAvatarAssetCategory(
+  $cursor: AvatarAssetCategoryWhereUniqueInput
+  $distinct: [AvatarAssetCategoryScalarFieldEnum!]
+  $orderBy: [AvatarAssetCategoryOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: AvatarAssetCategoryWhereInput
+) {
+  findOneAvatarAssetCategory(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    id
+    label
+    subCategories {
+      id
+      label
+    }
+  }
+}
+
+query findUniqueAvatarAssetCatalog(
+  $cursor: AvatarAssetCatelogWhereUniqueInput
+  $distinct: [AvatarAssetCatelogScalarFieldEnum!]
+  $orderBy: [AvatarAssetCatelogOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: AvatarAssetCatelogWhereInput
+) {
+  findOneAvatarAssetCatalog(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    id
+    label
+    imgUrl
+    type
+    isActive
+    createdAt
+    updatedAt
+    avatarAssetCategory {
+      id
+      label
+      type
+      parentCategory {
+        id
+        label
+      }
+      subCategories {
+        id
+        label
+      }
+    }
+    normalAvatarAsset {
+      ...normalAvatarAsset
+    }
+    skinAvatarAsset {
+      ...skinAvatarAsset
+    }
+    hairAvatarAsset {
+      ...hairAvatarAsset
+    }
+  }
+}
+
+query AvatarAssetCatalogCount(
+  $cursor: AvatarAssetCatelogWhereUniqueInput
+  $distinct: [AvatarAssetCatelogScalarFieldEnum!]
+  $orderBy: [AvatarAssetCatelogOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: AvatarAssetCatelogWhereInput
+) {
+  avatarAssetCatalogCount(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  )
+}
+
+query allCatalogOptions(
+  $skip: Int
+  $take: Int
+  $where: AvatarAssetCategoryWhereInput
+) {
+  getCatalog(skip: $skip, take: $take, where: $where) {
+    categoryCatelog {
+      type
+      parentCategory {
+        label
+      }
+      subCategories {
+        label
+      }
+      id
+      label
+      avatarAssetCatelog {
+        type
+        imgUrl
+        label
+        id
+        normalAvatarAsset {
+          imgUrl
+          label
+        }
+        hairAvatarAsset {
+          imgUrl
+          label
+          hairColour {
+            label
+          }
+        }
+      }
+    }
+  }
+}
+
+query findOneNormalAvatarAsset(
+  $cursor: NormalAvatarAssetWhereUniqueInput
+  $distinct: [NormalAvatarAssetScalarFieldEnum!]
+  $orderBy: [NormalAvatarAssetOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: NormalAvatarAssetWhereInput
+) {
+  findOneNormalAvatarAsset(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    ...normalAvatarAsset
+  }
+}
+
+query findOneSkinAvatarAsset(
+  $cursor: SkinAvatarAssetWhereUniqueInput
+  $distinct: [SkinAvatarAssetScalarFieldEnum!]
+  $orderBy: [SkinAvatarAssetOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: SkinAvatarAssetWhereInput
+) {
+  findOneSkinAvatarAsset(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    ...skinAvatarAsset
+  }
+}
+
+query findOneHairAvatarAsset(
+  $cursor: HairAvatarAssetWhereUniqueInput
+  $distinct: [HairAvatarAssetScalarFieldEnum!]
+  $orderBy: [HairAvatarAssetOrderByWithRelationAndSearchRelevanceInput!]
+  $skip: Int
+  $take: Int
+  $where: HairAvatarAssetWhereInput
+) {
+  findOneHairAvatarAsset(
+    cursor: $cursor
+    distinct: $distinct
+    orderBy: $orderBy
+    skip: $skip
+    take: $take
+    where: $where
+  ) {
+    ...hairAvatarAsset
+  }
+}
+
+fragment avatarAssetColour on AvatarAssetColour {
+  assetType
+  colourImgUrl
+  id
+  label
+}
+
+fragment hairAvatarAsset on HairAvatarAsset {
+  avatarAssetCatelogId
+  hairColourId
+  id
+  imgUrl
+  label
+  hairType
+  createdAt
+  updatedAt
+}
+
+fragment skinAvatarAsset on SkinAvatarAsset {
+  avatarAssetCatelogId
+  id
+  imgUrl
+  label
+  skinColourId
+  isHalfBody
+  createdAt
+  updatedAt
+}
+
+fragment normalAvatarAsset on NormalAvatarAsset {
+  avatarAssetCatelogId
+  id
+  imgUrl
+  label
+  isOuterMost
+  createdAt
+  updatedAt
+}
+
+fragment newUserAvatar on NewUserAvatarDto {
+  body {
+    ...skinAvatarAsset
+  }
+  ears {
+    ...skinAvatarAsset
+  }
+  head {
+    ...skinAvatarAsset
+  }
+  horns {
+    ...skinAvatarAsset
+  }
+  bottom {
+    ...normalAvatarAsset
+  }
+  cheeks {
+    ...normalAvatarAsset
+  }
+  eyes {
+    ...normalAvatarAsset
+  }
+  eyesAccessory {
+    ...normalAvatarAsset
+  }
+  headAccessory {
+    ...normalAvatarAsset
+  }
+  mouth {
+    ...normalAvatarAsset
+  }
+  nose {
+    ...normalAvatarAsset
+  }
+  pet {
+    ...normalAvatarAsset
+  }
+  hairBack {
+    ...hairAvatarAsset
+  }
+  hairBangs {
+    ...hairAvatarAsset
+  }
+  shoes {
+    ...normalAvatarAsset
+  }
+  hairColour {
+    ...avatarAssetColour
+  }
+  skinColour {
+    ...avatarAssetColour
+  }
+  itemAccessory {
+    ...normalAvatarAsset
+  }
+  faceAccessory {
+    ...normalAvatarAsset
+  }
+  topAccessory {
+    ...normalAvatarAsset
+  }
+  jacket {
+    ...normalAvatarAsset
+  }
+  shirt {
+    ...normalAvatarAsset
+  }
+  shadow {
+    ...normalAvatarAsset
+  }
+}

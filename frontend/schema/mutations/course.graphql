@@ -1,0 +1,35 @@
+mutation createCourse($data: CreateCourseInput!) {
+  createCourse(data: $data) {
+    id
+  }
+}
+
+mutation updateCourse($data: UpdateCourseInput!, $id: String!) {
+  updateCourse(data: $data, id: $id) {
+    id
+  }
+}
+
+mutation uploadCourseAsset($courseAssetType: CourseAssetType!, $file: Upload!) {
+  uploadCourseAsset(courseAssetType: $courseAssetType, file: $file) {
+    id
+    name
+    url
+  }
+}
+
+mutation enrollCourse($data: CreateEnrolledCourseInput!) {
+  enrollCourse(data: $data) {
+    id
+    lastTimeChecked
+    updatedAt
+    studentId
+    state
+  }
+}
+
+mutation removeCourse($id: String!) {
+  removeCourse(where: { id: $id }) {
+    id
+  }
+}

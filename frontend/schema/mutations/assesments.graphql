@@ -1,0 +1,18 @@
+mutation createAssessmentUser($data: AssessmentUserCreateInput!) {
+  createAssessmentUser(data: $data) {
+    id
+    grade
+    studentId
+    courseId
+    enrolledCheckpointId
+  }
+}
+
+mutation createAssesmentBlock($data: AssessmentBlockCreateInput!) {
+  createAssessmentBlock(data: $data) {
+    questionId
+    assessmentUserId
+    result
+    status
+  }
+}

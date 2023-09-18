@@ -1,0 +1,57 @@
+mutation login($data: LoginInput!) {
+  login(data: $data) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation loginStudent($data: LoginStudentInput!) {
+  loginStudent(data: $data) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation signup($data: SignupInput!) {
+  signup(data: $data) {
+    accessToken
+    refreshToken
+    user {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+
+mutation addChild($data: CreateChildInput!) {
+  addChild(data: $data) {
+    user {
+      firstName
+      lastName
+      role
+    }
+  }
+}
+
+mutation forgotPassword($data: ResetSendEmailInput!) {
+  forgotPassword(data: $data) {
+    message
+  }
+}
+
+mutation resetPassword($data: ResetPasswordInput!) {
+  resetPassword(data: $data) {
+    role
+  }
+}
+
+mutation adminLoginAs(
+  $data: AdminLoginAsInput!
+){
+  adminLoginAs(
+    data: $data
+  ){
+    accessToken
+  }
+}

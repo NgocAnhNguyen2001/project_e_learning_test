@@ -1,0 +1,172 @@
+# # image: tiangolo/docker-with-compose #
+
+# variables:
+#   TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+#   TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+#   SHA_TAG: $CI_COMMIT_SHORT_SHA
+#   BASE_IMAGE: novalearn
+
+# before_script:
+#   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+
+# services:
+#   - docker:19.03.1-dind
+
+# image: docker:latest
+
+# stages:
+#   - build
+#   - deploy
+
+# backend-build:
+#   stage: build
+#   script:
+#     - |
+#       echo building backend with a tag of $SHA_TAG
+#       if [[ "$CI_COMMIT_BRANCH" == "main" ]]; then
+#         echo "Running on main branch : tag = 'latest'"
+#         environment="production"
+#       fi
+#     - docker build --pull -t "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-backend ./backend -f $FILE_DIR
+#     - docker push "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-backend
+
+#   rules:
+#     - changes:
+#         - "admin/**/*"
+#         - "frontend/**/*"
+#         - "k8s/**/*"
+#       when: never
+#     - if: $CI_COMMIT_BRANCH == "main"
+#       variables:
+#         ENVIRONMENT: production
+#         FILE_DIR: ./backend/Dockerfile
+
+# backend-staging-build:
+#   stage: build
+#   script:
+#     - |
+#       echo building backend with a tag of $SHA_TAG
+#       if [[ "$CI_COMMIT_BRANCH" == "develop" ]]; then
+#         echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
+#       fi
+#     - docker build --pull -t "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-backend ./backend -f $FILE_DIR
+#     - docker push "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-backend
+
+#   rules:
+#     - changes:
+#         - "admin/**/*"
+#         - "frontend/**/*"
+#         - "k8s/**/*"
+#       when: never
+#     - if: $CI_COMMIT_BRANCH == "develop"
+#       variables:
+#         ENVIRONMENT: staging
+#         FILE_DIR: ./backend/Dockerfile.staging
+
+# frontend-build:
+#   stage: build
+#   variables:
+#     NEXT_PUBLIC_API_MOCKING: enabled
+#     TSC_COMPILE_ON_ERROR: "true"
+#     ESLINT_NO_DEV_ERRORS: "true"
+#   script:
+#     - |
+#       if [[ "$CI_COMMIT_BRANCH" == "main" ]]; then
+#         echo "Running on main branch : tag = 'latest'"
+#       fi
+#     - docker build --build-arg NODE_ENV=$NODE_ENV --build-arg NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL --build-arg NEXT_PUBLIC_API_MOCKING=$NEXT_PUBLIC_API_MOCKING --build-arg TSC_COMPILE_ON_ERROR=$TSC_COMPILE_ON_ERROR --build-arg ESLINT_NO_DEV_ERRORS=$ESLINT_NO_DEV_ERRORS --pull -t "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-frontend ./frontend  -f $FILE_DIR
+#     - docker push "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-frontend
+#   rules:
+#     - changes:
+#         - "k8s/**/*"
+#         - "admin/**/*"
+#         - "backend/**/*"
+#       when: never
+#     - if: $CI_COMMIT_BRANCH == "main"
+#       variables:
+#         ENVIRONMENT: production
+#         NODE_ENV: production
+#         NEXT_PUBLIC_API_URL: https://backend.production.novalearn.mindworksasia.com/graphql
+#         FILE_DIR: ./frontend/Dockerfile
+
+# frontend-staging-build:
+#   stage: build
+#   variables:
+#     NEXT_PUBLIC_API_MOCKING: enabled
+#     TSC_COMPILE_ON_ERROR: "true"
+#     ESLINT_NO_DEV_ERRORS: "true"
+#   script:
+#     - |
+#       if [[ "$CI_COMMIT_BRANCH" == "develop" ]]; then
+#         echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
+#       fi
+#     - docker build --build-arg NODE_ENV=$NODE_ENV --build-arg NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL --build-arg NEXT_PUBLIC_API_MOCKING=$NEXT_PUBLIC_API_MOCKING --build-arg TSC_COMPILE_ON_ERROR=$TSC_COMPILE_ON_ERROR --build-arg ESLINT_NO_DEV_ERRORS=$ESLINT_NO_DEV_ERRORS --pull -t "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-frontend ./frontend  -f $FILE_DIR
+#     - docker push "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-frontend
+#   rules:
+#     - changes:
+#         - "k8s/**/*"
+#         - "admin/**/*"
+#         - "backend/**/*"
+#       when: never
+#     - if: $CI_COMMIT_BRANCH == "develop"
+#       variables:
+#         NODE_ENV: development
+#         ENVIRONMENT: staging
+#         NEXT_PUBLIC_API_URL: https://backend.staging.novalearn.mindworksasia.com/graphql
+
+#         FILE_DIR: ./frontend/Dockerfile.staging
+
+# admin-build:
+#   stage: build
+#   variables:
+#     NEXT_PUBLIC_API_MOCKING: enabled
+#     TSC_COMPILE_ON_ERROR: "true"
+#     ESLINT_NO_DEV_ERRORS: "true"
+#   script:
+#     - |
+#       if [[ "$CI_COMMIT_BRANCH" == "main" ]]; then
+#         echo "Running on main branch : tag = 'latest'"
+#       fi
+#     - docker build --build-arg NODE_ENV=$NODE_ENV --build-arg NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL --build-arg NEXT_PUBLIC_FRONTEND_HOSTNAME=$NEXT_PUBLIC_FRONTEND_HOSTNAME --build-arg NEXT_PUBLIC_API_MOCKING=$NEXT_PUBLIC_API_MOCKING --build-arg TSC_COMPILE_ON_ERROR=$TSC_COMPILE_ON_ERROR --build-arg ESLINT_NO_DEV_ERRORS=$ESLINT_NO_DEV_ERRORS --pull -t "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-admin ./admin  -f $FILE_DIR
+#     - docker push "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-admin
+#   rules:
+#     - changes:
+#         - "backend/**/*"
+#         - "k8s/**/*"
+#         - "frontend/**/*"
+#       when: never
+#     - if: $CI_COMMIT_BRANCH == "main"
+#       variables:
+#         ENVIRONMENT: production
+#         NODE_ENV: production
+#         NEXT_PUBLIC_API_URL: https://backend.production.novalearn.mindworksasia.com/graphql
+#         NEXT_PUBLIC_FRONTEND_HOSTNAME: https://novalearn.org
+#         FILE_DIR: ./admin/Dockerfile
+
+# admin-staging-build:
+#   stage: build
+#   variables:
+#     NEXT_PUBLIC_API_MOCKING: enabled
+#     TSC_COMPILE_ON_ERROR: "true"
+#     ESLINT_NO_DEV_ERRORS: "true"
+#   script:
+#     - |
+#       if [[ "$CI_COMMIT_BRANCH" == "develop" ]]; then
+#         echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
+#       fi
+#     - docker build --build-arg NODE_ENV=$NODE_ENV --build-arg NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL --build-arg NEXT_PUBLIC_FRONTEND_HOSTNAME=$NEXT_PUBLIC_FRONTEND_HOSTNAME --build-arg NEXT_PUBLIC_API_MOCKING=$NEXT_PUBLIC_API_MOCKING --build-arg TSC_COMPILE_ON_ERROR=$TSC_COMPILE_ON_ERROR --build-arg ESLINT_NO_DEV_ERRORS=$ESLINT_NO_DEV_ERRORS --pull -t "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-admin ./admin  -f $FILE_DIR
+#     - docker push "$CI_REGISTRY_IMAGE"/$BASE_IMAGE-$ENVIRONMENT-admin
+#   rules:
+#     - changes:
+#         - "backend/**/*"
+#         - "k8s/**/*"
+#         - "frontend/**/*"
+#       when: never
+#     - if: $CI_COMMIT_BRANCH == "develop"
+#       variables:
+#         NODE_ENV: development
+#         ENVIRONMENT: staging
+#         NEXT_PUBLIC_API_URL: https://backend.staging.novalearn.mindworksasia.com/graphql
+#         NEXT_PUBLIC_FRONTEND_HOSTNAME: https://frontend.staging.novalearn.mindworksasia.com
+
+#         FILE_DIR: ./admin/Dockerfile.staging
